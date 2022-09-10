@@ -1,18 +1,12 @@
-<?php
-    session_start();
-    if (!isset($_SESSION['login'])) {
-      header('Location: auth/login.php');
-    }
-
-    require('koneksi.php');
-?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>SMK TEKNOLOGI BALUNG</title>
-
+      <?php
+      require('koneksi.php');
+      ?>
   <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
   <!-- Font Awesome -->
@@ -33,12 +27,22 @@
   <link rel="stylesheet" href="plugins/daterangepicker/daterangepicker.css">
   <!-- summernote -->
   <link rel="stylesheet" href="plugins/summernote/summernote-bs4.min.css">
+
+    <!-- DataTables -->
+  <link rel="stylesheet" href="plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
+  <link rel="stylesheet" href="plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
+  <link rel="stylesheet" href="plugins/datatables-buttons/css/buttons.bootstrap4.min.css">
+  <?php
+  $query='select * from jurusan' ;
+  $data=mysqli_query($conn,$query);
+  ?>
+
 </head>
 <body class="hold-transition sidebar-mini layout-fixed" style="background-color: #7FB77E;">
 <div class="wrapper">
 
   <!-- Navbar -->
-  <nav class="main-header navbar navbar-expand navbar-white navbar-light">
+  <nav class="main-header navbar navbar-expand navbar-white navbar-normal">
     <!-- Left navbar links -->
     <ul class="navbar-nav">
       <li class="nav-item">
@@ -82,8 +86,7 @@
   <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
     <a href="index3.html" class="brand-link">
-      <img src="dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
-      <span class="brand-text font-weight-light">PENDAFTARAN SISWA</span>
+      <span class="brand-text font-weight-bold">PENDAFTARAN SISWA</span>
     </a>
 
     <!-- Sidebar -->
@@ -94,7 +97,7 @@
           <img src="dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
         </div>
         <div class="info">
-          <a href="#" class="d-block"><?php echo $_SESSION['login'] ?></a>
+          <a href="#" class="d-block">Alexander Pierce</a>
         </div>
       </div>
 
@@ -104,7 +107,7 @@
           <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
           <li class="nav-item">
-            <a href="#" class="nav-link">
+            <a href="index.php" class="nav-link">
               <i class="nav-icon fas fa-th"></i>
               <p>
                 Dashboard
@@ -120,7 +123,7 @@
             </a>
           </li>
           <li class="nav-item">
-            <a href="jurusan.php" class="nav-link">
+            <a href="#" class="nav-link">
               <i class="nav-icon fas fa-th"></i>
               <p>
                 Jurusan
@@ -128,7 +131,7 @@
             </a>
           </li>
           <li class="nav-item">
-            <a href="#" class="nav-link">
+            <a href="setting.php" class="nav-link">
               <i class="nav-icon fas fa-th"></i>
               <p>
                 Pengaturan
@@ -149,131 +152,50 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1 class="m-0 text-white">Pengaturan Akun</h1>
-          </div>
+            <h1 class="m-0 text-white">Jurusan</h1>
+          </div><!-- /.col -->
         </div><!-- /.row -->
       </div><!-- /.container-fluid -->
     </div>
     <!-- /.content-header -->
 
     <!-- Main content -->
-    <section class="content">
+    <section class="content" >
       <div class="container-fluid">
-      <div class="row">
-      <div class="col-md-3">
-            <!-- general form elements -->
-            <div class="card card-primary">
+        <a href="tambah_jurusan.php" class="btn btn-lg btn-primary mb-3">Tambah Data</a>
+        <div>
+        <div class="card">
               <div class="card-header">
-                <h3 class="card-title">Ubah Foto Profil</h3>
+                <h3 class="card-title">Data Jurusan</h3>
               </div>
               <!-- /.card-header -->
-              <!-- form start -->
-              <form>
-                <div class="card-body">
-                  <div class="form-group">
-                    <label for="exampleInputFile">File input</label>
-                    <div class="input-group">
-                      <div class="custom-file">
-                        <input type="file" class="custom-file-input" id="exampleInputFile">
-                        <label class="custom-file-label" for="exampleInputFile">Choose file</label>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="d-flex justify-content-center">
-                    <img src="asset/blank-profile.png" width="140" alt="">
-                  </div>
-                </div>
-                <!-- /.card-body -->
-
-                <div class="card-footer">
-                  <button type="submit" class="btn btn-primary">Perbarui</button>
-                </div>
-              </form>
-            </div>
-            <!-- /.card -->
-          </div>
-      <div class="col-md-6">
-            <!-- general form elements -->
-            <div class="card card-primary">
-              <div class="card-header">
-                <h3 class="card-title">Ubah bio</h3>
+              <div class="card-body">
+                <table id="example1" class="table table-bordered table-striped">
+                  <thead>
+                  <tr>
+                    <th>NO</th>
+                    <th>JURUSAN</th>
+                    <th>AKSI</th>
+                  </tr>
+                  </thead>
+                  <tbody>
+                  <?php foreach ($data as $key => $data2) { ?>
+                  <tr >
+                    <th class="font-weight-normal"><?php echo $key + 1 ?></th>
+                    <th class="font-weight-normal"><?php echo$data2['jurusan']?></th>
+                    <th class="d-flex"> <button class="btn btn-danger mr-2" onclick="ondeleteHandle('<?= $data2['jurusan'] ?>')" >Delete</button> 
+                    <a href="editjurusan.php?jurusan=<?= $data2['jurusan'] ?>" class="btn btn-warning ">Edit</a></th>
+                  </tr>
+                  <?php
+                  }
+                  ?>
+                  </tbody>
+                </table>
               </div>
-              <!-- /.card-header -->
-              <!-- form start -->
-              <form>
-                <div class="card-body">
-                  <div class="form-group">
-                    <label for="nama">Nama</label>
-                    <input type="text" class="form-control" id="nama" placeholder="Masukkan nama">
-                  </div>
-                  <div class="form-group">
-                    <label for="email">Email</label>
-                    <input type="email" class="form-control" id="email" placeholder="Masukkan email">
-                  </div>
-                  <div class="form-group">
-                    <label for="notelp">No Telepon</label>
-                    <input type="number" class="form-control" id="notelp" placeholder="Masukkan no telepon">
-                  </div>
-                </div>
-                <!-- /.card-body -->
-
-                <div class="card-footer">
-                  <button type="submit" class="btn btn-primary">Perbarui</button>
-                </div>
-              </form>
+              <!-- /.card-body -->
             </div>
-            <!-- /.card -->
-          </div>
-          </div>
-          <div class="row">
-          <div class="col-md-4">
-            <!-- general form elements -->
-            <div class="card card-primary">
-              <div class="card-header">
-                <h3 class="card-title">Ubah Password</h3>
-              </div>
-              <!-- /.card-header -->
-              <!-- form start -->
-              <form>
-                <div class="card-body">
-                  <div class="form-group">
-                    <label for="pwlm">Password Lama</label>
-                    <input type="password" class="form-control" id="pwlm" placeholder="Masukkan password lama">
-                  </div>
-                  <div class="form-group">
-                    <label for="pwbr">Password Baru</label>
-                    <input type="password" class="form-control" id="pwbr" placeholder="Masukkan password baru">
-                  </div>
-                </div>
-                <!-- /.card-body -->
-
-                <div class="card-footer">
-                  <button type="submit" class="btn btn-primary">Perbarui</button>
-                </div>
-              </form>
-            </div>
-            <!-- /.card -->
-          </div>
-          <div class="col-md-2">
-            <!-- general form elements -->
-            <div class="card card-danger">
-              <div class="card-header">
-                <h3 class="card-title">Keluar Akun</h3>
-              </div>
-              <!-- /.card-header -->
-              <!-- form start -->
-              <form action="auth/logout-action.php" method="POST">
-                <div class="card-footer">
-                  <button type="submit" class="btn btn-danger">Keluar</button>
-                </div>
-              </form>
-            </div>
-            <!-- /.card -->
-          </div>
-          </div>
-      </div>
-          </div>
-      </div>
+        </div>
+      </div><!-- /.container-fluid -->
     </section>
     <!-- /.content -->
   </div>
@@ -285,7 +207,6 @@
   <!-- /.control-sidebar -->
 </div>
 <!-- ./wrapper -->
-
 <!-- jQuery -->
 <script src="plugins/jquery/jquery.min.js"></script>
 <!-- jQuery UI 1.11.4 -->
@@ -320,5 +241,60 @@
 <script src="dist/js/demo.js"></script>
 <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
 <script src="dist/js/pages/dashboard.js"></script>
+
+<!-- DataTables  & Plugins -->
+<script src="plugins/datatables/jquery.dataTables.min.js"></script>
+<script src="plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
+<script src="plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
+<script src="plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
+<script src="plugins/datatables-buttons/js/dataTables.buttons.min.js"></script>
+<script src="plugins/datatables-buttons/js/buttons.bootstrap4.min.js"></script>
+<script src="plugins/jszip/jszip.min.js"></script>
+<script src="plugins/pdfmake/pdfmake.min.js"></script>
+<script src="plugins/pdfmake/vfs_fonts.js"></script>
+<script src="plugins/datatables-buttons/js/buttons.html5.min.js"></script>
+<script src="plugins/datatables-buttons/js/buttons.print.min.js"></script>
+<script src="plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
+<script src="plugins/sweetalert2@11.js"></script>
+<script>
+  const ondeleteHandle = (jurusan) => {
+    Swal.fire({
+    title: 'Apakah kamu yakin?',
+    text: `Semua data siswa yang berjurusan ${jurusan} akan ikut terhapus`,
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonColor: '#3085d6',
+    cancelButtonColor: '#d33',
+    confirmButtonText: 'Ya',
+    cancelButtonText: 'Tidak'
+  }).then((result) => {
+    if (result.isConfirmed) {
+      Swal.fire(
+        'Terhapus!',
+        `Jurusan ${jurusan} beserta data siswa nya terhapus`,
+        'success'
+      )
+      window.location.href = `http://localhost/PPDB/action/proses_delete_jurusan.php?jurusan=${jurusan}`;
+    }
+  })
+  }
+</script>
+<script>
+  $(function () {
+    $("#example1").DataTable({
+      "responsive": true, "lengthChange": false, "autoWidth": false,
+      "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
+    }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
+    $('#example2').DataTable({
+      "paging": true,
+      "lengthChange": false,
+      "searching": false,
+      "ordering": true,
+      "info": true,
+      "autoWidth": false,
+      "responsive": true,
+    });
+  });
+</script>
 </body>
 </html>

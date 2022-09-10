@@ -125,6 +125,14 @@
             </a>
           </li>
           <li class="nav-item">
+            <a href="jurusan.php" class="nav-link">
+              <i class="nav-icon fas fa-th"></i>
+              <p>
+                Jurusan
+              </p>
+            </a>
+          </li>
+          <li class="nav-item">
             <a href="setting.php" class="nav-link">
               <i class="nav-icon fas fa-th"></i>
               <p>
