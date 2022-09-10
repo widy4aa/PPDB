@@ -167,7 +167,7 @@
               </div>
               <!-- /.card-header -->
               <!-- form start -->
-              <form action="action/proses_tambah.php" method="POST">
+              <form action="action/proses_edit_siswa.php?id=<?= $siswa['id'] ?>" method="POST">
                 <div class="card-body">
                   <div class="row">
                     <div class="col-sm-5">
@@ -242,10 +242,25 @@
                       <label for="NIK">ALAMAT</label>
                       <textarea name="alamat" id="" cols="30" rows="10" class="form-control" ><?= $siswa['alamat'] ?></textarea>
                   </div>
+                  <div>
+                  <b class="text-medium">Status Pendaftaran</b>
+                  <div class="row">
+                    <div class="form-group">
+                        <div class="custom-control custom-radio">
+                          <input class="custom-control-input" type="radio" id="customRadio1" name="status" value="1" <?php echo $siswa['status'] ? 'checked' : '' ?> >
+                          <label for="customRadio1" class="custom-control-label">Sudah daftar ulang</label>
+                        </div>
+                        <div class="custom-control custom-radio">
+                          <input class="custom-control-input" type="radio" id="customRadio2" name="status" value="0" <?php echo $siswa['status'] ? '' : 'checked' ?>>
+                          <label for="customRadio2" class="custom-control-label" >Belum daftar ulang</label>
+                        </div>
+                    </div>
+                    </div>
+                    </div>
 
                 </div>
                 <div class="card-footer">
-                  <button type="submit" name="tambah" class="btn btn-primary">Edit</button>
+                  <button type="submit" name="edit" class="btn btn-primary">Edit</button>
                 </div>
               </form>
             </div>
