@@ -1,3 +1,3 @@
 <?php
-    $conn = mysqli_connect('localhost','root','root','pendaftaran');
+    $conn = mysqli_connect('localhost','root','','pendaftaran');
 ?>
