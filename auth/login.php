@@ -31,22 +31,25 @@
       <p class="login-box-msg">Masuk untuk mengelola pendaftaran siswa baru</p>
 
       <form action="login-action.php" method="post">
-        <div class="input-group mb-3">
-          <input type="email" name="email" class="form-control" placeholder="Email">
+        <div class="input-group mb-3 <?= $_SESSION['error'] ? 'border border-danger rounded' : '' ?>">
+          <input type="email" name="email" class="form-control" placeholder="Email" required>
           <div class="input-group-append">
             <div class="input-group-text">
               <span class="fas fa-envelope"></span>
             </div>
           </div>
         </div>
-        <div class="input-group mb-3">
-          <input type="password" name="password" class="form-control" placeholder="Password">
+        <div class="input-group mb-3 <?= $_SESSION['error'] ? 'border border-danger rounded' : '' ?>">
+          <input type="password" name="password" class="form-control" placeholder="Password" required>
           <div class="input-group-append">
             <div class="input-group-text">
               <span class="fas fa-lock"></span>
             </div>
           </div>
         </div>
+        <?php if (isset($_SESSION['error'])) { ?>
+          <p class="text-center text-red text-bold">Email/password salah</p>
+        <?php } ?>
         <div class="row">
           <!-- /.col -->
           <div class="col-4">
@@ -61,7 +64,9 @@
   <!-- /.card -->
 </div>
 <!-- /.login-box -->
-
+<?php
+  unset($_SESSION["error"])
+?>
 <!-- jQuery -->
 <script src="../plugins/jquery/jquery.min.js"></script>
 <!-- Bootstrap 4 -->
