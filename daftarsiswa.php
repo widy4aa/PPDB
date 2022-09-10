@@ -128,6 +128,14 @@
             </a>
           </li>
           <li class="nav-item">
+            <a href="jurusan.php" class="nav-link">
+              <i class="nav-icon fas fa-th"></i>
+              <p>
+                Jurusan
+              </p>
+            </a>
+          </li>
+          <li class="nav-item">
             <a href="setting.php" class="nav-link">
               <i class="nav-icon fas fa-th"></i>
               <p>
@@ -149,7 +157,7 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1 class="m-0">Siswa</h1>
+            <h1 class="m-0 text-white">Siswa</h1>
           </div><!-- /.col -->
         </div><!-- /.row -->
       </div><!-- /.container-fluid -->
@@ -189,11 +197,11 @@
                   </thead>
                   <tbody>
                   <?php 
-                  while($data2=mysqli_fetch_array($data)){
+                  foreach ($data as $key => $data2) {
                   ?>
                   <tr >
                     
-                    <th class="font-weight-normal"><?php echo$data2['id']?></th>
+                    <th class="font-weight-normal"><?php echo$key + 1?></th>
                     <th class="font-weight-normal"><?php echo$data2['nik']?></th>
                     <th class="font-weight-normal"><?php echo$data2['kk']?></th>
                     <th class="font-weight-normal"><?php echo$data2['nisn']?></th>

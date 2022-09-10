@@ -2,11 +2,6 @@
   require('koneksi.php');
 
   $jurusan=mysqli_query($conn,"SELECT * FROM jurusan");
-
-  $id = $_GET['id'];
-  $query = mysqli_query($conn, "SELECT * FROM calon_siswa WHERE id = $id ");
-  
-  $siswa = mysqli_fetch_assoc($query);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -118,10 +113,18 @@
             </a>
           </li>
           <li class="nav-item">
-            <a href="#" class="nav-link">
+            <a href="daftarsiswa.php" class="nav-link">
               <i class="nav-icon fas fa-th"></i>
               <p>
                 Siswa
+              </p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="jurusan.php" class="nav-link">
+              <i class="nav-icon fas fa-th"></i>
+              <p>
+                Jurusan
               </p>
             </a>
           </li>
@@ -147,7 +150,7 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1 class="m-0 text-white">Edit Data Siswa</h1>
+            <h1 class="m-0 text-white">Tambah Jurusan</h1>
           </div><!-- /.col -->
         </div><!-- /.row -->
       </div><!-- /.container-fluid -->
@@ -163,104 +166,19 @@
             <!-- general form elements -->
             <div class="card card-primary">
               <div class="card-header">
-                <h3 class="card-title">Edit Input Data Siswa</h3>
+                <h3 class="card-title">Form Input Jurusan</h3>
               </div>
               <!-- /.card-header -->
               <!-- form start -->
-              <form action="action/proses_edit_siswa.php?id=<?= $siswa['id'] ?>" method="POST">
+              <form action="action/proses_tambah_jurusan.php" method="POST">
                 <div class="card-body">
-                  <div class="row">
-                    <div class="col-sm-5">
-                    <div class="form-group">
-                      <label for="NIK">NIK</label>
-                      <input type="number" name="nik" value="<?= $siswa['nik'] ?>" class="form-control" id="NIK" placeholder="Masukkan NIK">
-                    </div>
-                    </div>
-                    <div class="col-sm-5">
-                  <div class="form-group">
-                      <label for="NOMORKK">NOMOR KK</label>
-                      <input type="number" name="kk" value="<?= $siswa['kk'] ?>" class="form-control" id="NOMORKK" placeholder="Masukkan Nomor KK">
-                    </div>
-                    </div>
-                  </div>
-                  <div class="form-group">
-                      <label for="NISN">NISN</label>
-                      <input type="number" name="nisn" value="<?= $siswa['nisn'] ?>" class="form-control" id="NISN" placeholder="Masukkan NISN">
-                  </div>
               <div class="form-group">
-                  <label for="NAMASISWA">NAMA SISWA</label>
-                  <input type="text" name="nama" value="<?= $siswa['nama'] ?>" class="form-control" id="NAMASISWA" placeholder="Masukkan Nama Siswa">
+                  <label for="NAMASISWA">JURUSAN</label>
+                  <input type="text" name="jurusan" class="form-control" id="NAMASISWA" placeholder="Masukkan Jurusan">
               </div>
-              <div class="form-group">
-              <label for="NAMASISWA">TGL LAHIR</label>
-              <div class="input-group date" id="datepicker">
-            <input type="date" name="tgl_lahir" class="form-control" value="<?= $siswa['tgl_lahir'] ?>" id="date"/>
-            </div>
-              </div>
-              <div class="form-group">
-                  <label>JURUSAN</label>
-                  <select class="form-control select2" name="jurusan" style="width: 100%;">
-                  <?php 
-                  while($fetchjurusan=mysqli_fetch_array($jurusan)){
-                    if ($fetchjurusan['jurusan'] == $siswa['jurusan']) {
-                  ?>
-                    <option selected value="<?php echo $fetchjurusan['jurusan'] ?>"><?php echo $fetchjurusan['jurusan'] ?></option>
-                    <?php }else{ ?>
-                    <option value="<?php echo $fetchjurusan['jurusan'] ?>"><?php echo $fetchjurusan['jurusan'] ?></option>
-                  <?php }} ?>
-                  </select>
-                </div>
-                <div class="form-group">
-              <label for="NAMASISWA">TGL PENDAFTARAN</label>
-              <div class="input-group date" id="datepicker">
-            <input type="date" name="tgl_pendaftaran" value="<?= $siswa['tgl_pendaftaran'] ?>" class="form-control" id="date"/>
-            </div>
-              </div>
-              <div class="form-group">
-                      <label for="NOMORKK">NOMOR HP</label>
-                      <input type="number" name="no_hp" value="<?= $siswa['no_hp'] ?>" class="form-control" id="NOMORKK" placeholder="Masukkan Nomor HP">
-              </div>
-              <div class="row">
-                    <div class="col-sm-5">
-                    <div class="form-group">
-                      <label for="NIK">NAMA AYAH</label>
-                      <input type="text" name="nama_ayah" value="<?= $siswa['nama_ayah'] ?>" class="form-control" id="NIK" placeholder="Masukkan Nama Ayah">
-                    </div>
-                    </div>
-                    <div class="col-sm-5">
-                  <div class="form-group">
-                      <label for="NOMORKK">NAMA IBU</label>
-                      <input type="text" name="nama_ibu" value="<?= $siswa['nama_ibu'] ?>" class="form-control" id="NOMORKK" placeholder="Masukkan Nama Ibu">
-                  </div>
-                    </div>
-                </div>
-                <div class="form-group">
-                      <label for="NOMORKK">ASAL SEKOLAH</label>
-                      <input type="text" name="asal_sekolah" value="<?= $siswa['asal_sekolah'] ?>" class="form-control" id="NOMORKK" placeholder="Masukkan Asal Sekolah">
-              </div>
-                <div class="form-group">
-                      <label for="NIK">ALAMAT</label>
-                      <textarea name="alamat" id="" cols="30" rows="10" class="form-control" ><?= $siswa['alamat'] ?></textarea>
-                  </div>
-                  <div>
-                  <b class="text-medium">Status Pendaftaran</b>
-                  <div class="row">
-                    <div class="form-group">
-                        <div class="custom-control custom-radio">
-                          <input class="custom-control-input" type="radio" id="customRadio1" name="status" value="1" <?php echo $siswa['status'] ? 'checked' : '' ?> >
-                          <label for="customRadio1" class="custom-control-label">Sudah daftar ulang</label>
-                        </div>
-                        <div class="custom-control custom-radio">
-                          <input class="custom-control-input" type="radio" id="customRadio2" name="status" value="0" <?php echo $siswa['status'] ? '' : 'checked' ?>>
-                          <label for="customRadio2" class="custom-control-label" >Belum daftar ulang</label>
-                        </div>
-                    </div>
-                    </div>
-                    </div>
-
                 </div>
                 <div class="card-footer">
-                  <button type="submit" name="edit" class="btn btn-primary">Edit</button>
+                  <button type="submit" name="tambah" class="btn btn-primary">Tambah</button>
                 </div>
               </form>
             </div>

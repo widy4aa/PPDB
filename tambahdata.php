@@ -113,10 +113,18 @@
             </a>
           </li>
           <li class="nav-item">
-            <a href="#" class="nav-link">
+            <a href="daftarsiswa.php" class="nav-link">
               <i class="nav-icon fas fa-th"></i>
               <p>
                 Siswa
+              </p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="jurusan.php" class="nav-link">
+              <i class="nav-icon fas fa-th"></i>
+              <p>
+                Jurusan
               </p>
             </a>
           </li>
