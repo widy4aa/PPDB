@@ -13,6 +13,7 @@
             $_SESSION['login'] = $userquery['name'];
             header('Location: ../index.php');
         }else{
+            $_SESSION['error'] = true;
             header('Location: login.php');
         }
     }
