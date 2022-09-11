@@ -10,7 +10,7 @@
         $userquery = mysqli_fetch_assoc($query);
 
         if (password_verify($password, $userquery['password'])) {
-            $_SESSION['login'] = $userquery['name'];
+            $_SESSION['login'] = $userquery['id'];
             header('Location: ../index.php');
         }else{
             $_SESSION['error'] = true;
