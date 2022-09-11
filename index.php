@@ -16,6 +16,8 @@
     $queryJurusanResult = mysqli_fetch_assoc($queryJurusan)['COUNT(*)'];
     $queryUser = mysqli_query($conn,"SELECT COUNT(*) FROM user");
     $queryUserResult = mysqli_fetch_assoc($queryUser)['COUNT(*)'];
+
+    $latestCalonSiswa = mysqli_query($conn,"SELECT * FROM calon_siswa ORDER BY tgl_pendaftaran DESC LIMIT 5");
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -198,7 +200,7 @@
         </div>
         <!-- /.row -->
         <div class="row">
-          <div class="col-6">
+          <div class="col-7">
             <div class="card">
               <div class="card-header bg-primary">
                 <h3 class="card-title">Siswa terakhir mendaftar</h3>
@@ -212,21 +214,25 @@
                       <th>NIK</th>
                       <th>NAMA</th>
                       <th>JURUSAN</th>
+                      <th>TGL PENDAFTARAN</th>
                     </tr>
                   </thead>
                   <tbody>
-                    <tr>
-                      <td>183</td>
-                      <td>John Doe</td>
-                      <td>11-7-2014</td>
-                      <td><span class="tag tag-success">Approved</span></td>
-                    </tr>
+                    <?php foreach ($latestCalonSiswa as $key => $calonsiswa) { ?>
+                      <tr>
+                        <td><?= $key + 1 ?></td>
+                        <td><?= $calonsiswa['nik'] ?></td>
+                        <td><?= $calonsiswa['nama'] ?></td>
+                        <td><?= $calonsiswa['jurusan'] ?></td>
+                        <td><?= $calonsiswa['tgl_pendaftaran'] ?></td>
+                      </tr>
+                    <?php } ?>
                   </tbody>
                 </table>
               </div>
               <!-- /.card-body -->
               <div class="card-footer">
-                <p class="card-title text-md">Lihat semua calon siswa</p>
+                <a href="daftarsiswa.php" class="card-title text-md">Lihat semua calon siswa</a>
               </div>
             </div>
             <!-- /.card -->
