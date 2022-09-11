@@ -1,12 +1,24 @@
+<?php
+    session_start();
+    if (!isset($_SESSION['login'])) {
+      header('Location: auth/login.php');
+    }
+
+    require('koneksi.php');
+
+    $loginsess = $_SESSION['login'];
+    $query = mysqli_query($conn,"SELECT * FROM user WHERE id = $loginsess");
+    $user = mysqli_fetch_assoc($query);
+
+    $query='select * from calon_siswa' ;
+    $data=mysqli_query($conn,$query);
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>SMK TEKNOLOGI BALUNG</title>
-      <?php
-      require('koneksi.php');
-      ?>
   <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
   <!-- Font Awesome -->
@@ -32,19 +44,10 @@
   <link rel="stylesheet" href="plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
   <link rel="stylesheet" href="plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
   <link rel="stylesheet" href="plugins/datatables-buttons/css/buttons.bootstrap4.min.css">
-  <?php
-  $query='select * from calon_siswa' ;
-  $data=mysqli_query($conn,$query);
-  ?>
-
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
 </head>
 <body class="hold-transition sidebar-mini layout-fixed" style="background-color: #7FB77E;">
 <div class="wrapper">
-
-  <!-- Preloader -->
-  <div class="preloader flex-column justify-content-center align-items-center">
-    <img class="animation__shake" src="dist/img/AdminLTELogo.png" alt="AdminLTELogo" height="60" width="60">
-  </div>
 
   <!-- Navbar -->
   <nav class="main-header navbar navbar-expand navbar-white navbar-normal">
@@ -57,27 +60,6 @@
 
     <!-- Right navbar links -->
     <ul class="navbar-nav ml-auto">
-      <!-- Navbar Search -->
-      <li class="nav-item">
-        <a class="nav-link" data-widget="navbar-search" href="#" role="button">
-          <i class="fas fa-search"></i>
-        </a>
-        <div class="navbar-search-block">
-          <form class="form-inline">
-            <div class="input-group input-group-sm">
-              <input class="form-control form-control-navbar" type="search" placeholder="Search" aria-label="Search">
-              <div class="input-group-append">
-                <button class="btn btn-navbar" type="submit">
-                  <i class="fas fa-search"></i>
-                </button>
-                <button class="btn btn-navbar" type="button" data-widget="navbar-search">
-                  <i class="fas fa-times"></i>
-                </button>
-              </div>
-            </div>
-          </form>
-        </div>
-      </li>
       <li class="nav-item">
         <a class="nav-link" data-widget="fullscreen" href="#" role="button">
           <i class="fas fa-expand-arrows-alt"></i>
@@ -90,19 +72,19 @@
   <!-- Main Sidebar Container -->
   <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
-    <a href="index3.html" class="brand-link">
-      <span class="brand-text font-weight-bold">PENDAFTARAN SISWA</span>
-    </a>
+    <p class="brand-link">
+      <span class="brand-text font-weight-semibold ml-2">PENDAFTARAN SISWA</span>
+    </p>
 
     <!-- Sidebar -->
     <div class="sidebar">
       <!-- Sidebar user panel (optional) -->
       <div class="user-panel mt-3 pb-3 mb-3 d-flex">
         <div class="image">
-          <img src="dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
+          <img src="<?= $user['photo_profile'] ? 'asset/photoProfile/' . $user['photo_profile'] : 'asset/photoProfile/blank-profile.png' ?>" class="img-circle elevation-2" alt="User Image">
         </div>
         <div class="info">
-          <a href="#" class="d-block">Alexander Pierce</a>
+          <a href="#" class="d-block"><?= $user['name'] ?></a>
         </div>
       </div>
 
@@ -120,8 +102,8 @@
             </a>
           </li>
           <li class="nav-item">
-            <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-th"></i>
+            <a href="#" class="nav-link active">
+            <i class="nav-icon bi bi-people-fill"></i>
               <p>
                 Siswa
               </p>
@@ -129,7 +111,7 @@
           </li>
           <li class="nav-item">
             <a href="jurusan.php" class="nav-link">
-              <i class="nav-icon fas fa-th"></i>
+            <i class="nav-icon bi bi-pc-display"></i>
               <p>
                 Jurusan
               </p>
@@ -137,7 +119,7 @@
           </li>
           <li class="nav-item">
             <a href="setting.php" class="nav-link">
-              <i class="nav-icon fas fa-th"></i>
+            <i class="nav-icon bi bi-gear"></i>
               <p>
                 Pengaturan
               </p>
@@ -223,7 +205,7 @@
                     }
                     ?></th>
                     <th> <a class="btn btn-danger " href="action/proses_delete.php?id=<?php echo$data2['id']?>" >Delete</a> 
-                    <a href="editsiswa.php?id=<?= $data2['id'] ?>" class="btn btn-warning ">Edit</a></th>
+                    <a href="editsiswa.php?id=<?= $data2['id'] ?>" class="btn btn-warning text-white">Edit</a></th>
                   
                   </tr>
                   <?php
@@ -297,9 +279,6 @@
 <script src="plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
 <!-- AdminLTE App -->
 <script src="dist/js/adminlte.js"></script>
-<!-- AdminLTE for demo purposes -->
-<script src="dist/js/demo.js"></script>
-<!-- AdminLTE dashboard demo (This is only for demo purposes) -->
 <script src="dist/js/pages/dashboard.js"></script>
 
 <!-- DataTables  & Plugins -->

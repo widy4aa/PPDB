@@ -31,7 +31,7 @@
       <p class="login-box-msg">Masuk untuk mengelola pendaftaran siswa baru</p>
 
       <form action="login-action.php" method="post">
-        <div class="input-group mb-3 <?= $_SESSION['error'] ? 'border border-danger rounded' : '' ?>">
+        <div class="input-group mb-3 <?= isset($_SESSION['error']) ? 'border border-danger rounded' : '' ?>">
           <input type="email" name="email" class="form-control" placeholder="Email" required>
           <div class="input-group-append">
             <div class="input-group-text">
@@ -39,7 +39,7 @@
             </div>
           </div>
         </div>
-        <div class="input-group mb-3 <?= $_SESSION['error'] ? 'border border-danger rounded' : '' ?>">
+        <div class="input-group mb-3 <?= isset($_SESSION['error']) ? 'border border-danger rounded' : '' ?>">
           <input type="password" name="password" class="form-control" placeholder="Password" required>
           <div class="input-group-append">
             <div class="input-group-text">
