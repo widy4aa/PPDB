@@ -8,7 +8,6 @@
                 <input type="password" name="password" placeholder="masukkan password"/>
   
                 <button type="submit" name="daftar">Daftar</button>
-            </div>
             </form>
   </body>  
   <!--JANGAN DI BULLY BANH :( -->
