@@ -200,7 +200,7 @@
         </div>
         <!-- /.row -->
         <div class="row">
-          <div class="col-7">
+          <div class="col-md-7">
             <div class="card">
               <div class="card-header bg-primary">
                 <h3 class="card-title">Siswa terakhir mendaftar</h3>
