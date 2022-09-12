@@ -174,7 +174,7 @@
                 <!-- /.card-body -->
 
                 <div class="card-footer">
-                  <button type="submit" class="btn btn-primary">Perbarui</button>
+                  <button type="submit" disabled class="btn btn-primary" id="btnupdatepp">Perbarui</button>
                 </div>
               </form>
             </div>
@@ -328,6 +328,8 @@
     let loadFile = function(event) {
     let ppnow = document.getElementById('ppnow')
     ppnow.style.display = 'none'
+
+    document.getElementById('btnupdatepp').disabled = false
 
     let output = document.getElementById('output')
     output.style.width = '140px'
