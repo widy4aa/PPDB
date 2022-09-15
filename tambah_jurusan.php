@@ -167,7 +167,7 @@
                   <?php }} ?>" id="NAMASISWA" placeholder="Masukkan Jurusan" required>
                   <?php if (isset($_SESSION['message_add_jurusan'])) {
                     if ($_SESSION['message_add_jurusan'] == 'Jurusan sudah ada') { ?>
-                  <p class="text-bold text-danger">Tempis</p>
+                  <p class="text-bold text-danger">Jurusan sudah ada</p>
                   <?php }} ?>
               </div>
                 </div>

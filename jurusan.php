@@ -260,7 +260,7 @@
         `Jurusan ${jurusan} beserta data siswa nya terhapus`,
         'success'
       )
-      window.location.href = `http://localhost/PPDB/action/proses_delete_jurusan.php?jurusan=${jurusan}`;
+      window.location.href = `/PPDB/action/proses_delete_jurusan.php?jurusan=${jurusan}`;
     }
   })
   }
